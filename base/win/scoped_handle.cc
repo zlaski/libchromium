@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include "base/win/scoped_handle.h"
 
 #include "base/win/scoped_handle_verifier.h"
@@ -58,3 +60,5 @@ void OnHandleBeingClosed(HANDLE handle, HandleOperation operation) {
 
 }  // namespace win
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__

@@ -25,7 +25,9 @@ namespace base {
 MemoryMappedFile::MemoryMappedFile() = default;
 
 bool MemoryMappedFile::MapImageToMemory(Access access) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif // __LIBCHROMIUM_MODS__
 
   // The arguments to the calls of ::CreateFile(), ::CreateFileMapping(), and
   // ::MapViewOfFile() need to be self consistent as far as access rights and
@@ -65,7 +67,9 @@ bool MemoryMappedFile::MapImageToMemory(Access access) {
 bool MemoryMappedFile::MapFileRegionToMemory(
     const MemoryMappedFile::Region& region,
     Access access) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
 
   DCHECK(access != READ_CODE_IMAGE || region == Region::kWholeFile);
 

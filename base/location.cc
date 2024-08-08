@@ -36,11 +36,16 @@ constexpr size_t StrLen(const char* str) {
 constexpr size_t StrippedFilePathPrefixLength() {
   constexpr char path[] = __FILE__;
   // Only keep the file path starting from the src directory.
+#ifdef __LIBCHROMIUM_MODS__
+  constexpr char stripped[] = "base\\location.cc";
+#else  // __LIBCHROMIUM_MODS__
 #if defined(__clang__) && defined(_MSC_VER)
   constexpr char stripped[] = "base\\location.cc";
 #else
   constexpr char stripped[] = "base/location.cc";
 #endif
+#endif // __LIBCHROMIUM_MODS__
+
   constexpr size_t path_len = StrLen(path);
   constexpr size_t stripped_len = StrLen(stripped);
   static_assert(path_len >= stripped_len,
@@ -70,6 +75,10 @@ constexpr bool StrEndsWith(const char* name,
   return true;
 }
 
+#ifdef __LIBCHROMIUM_MODS__
+static_assert(StrEndsWith(__FILE__, kStrippedPrefixLength, "base\\location.cc"),
+              "The file name does not match the expected prefix format.");
+#else
 #if defined(__clang__) && defined(_MSC_VER)
 static_assert(StrEndsWith(__FILE__, kStrippedPrefixLength, "base\\location.cc"),
               "The file name does not match the expected prefix format.");
@@ -77,6 +86,7 @@ static_assert(StrEndsWith(__FILE__, kStrippedPrefixLength, "base\\location.cc"),
 static_assert(StrEndsWith(__FILE__, kStrippedPrefixLength, "base/location.cc"),
               "The file name does not match the expected prefix format.");
 #endif
+#endif // __LIBCHROMIUM_MODS__
 
 }  // namespace
 
@@ -115,12 +125,16 @@ std::string Location::ToString() const {
   return StringPrintf("pc:%p", program_counter_);
 }
 
+#ifndef __LIBCHROMIUM_MODS__
+
 void Location::WriteIntoTrace(perfetto::TracedValue context) const {
   auto dict = std::move(context).WriteDictionary();
   dict.Add("function_name", function_name_);
   dict.Add("file_name", file_name_);
   dict.Add("line_number", line_number_);
 }
+
+#endif // __LIBCHROMIUM_MODS
 
 #if defined(COMPILER_MSVC)
 #define RETURN_ADDRESS() _ReturnAddress()

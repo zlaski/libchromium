@@ -10,6 +10,8 @@
 #ifndef BASE_WIN_SCOPED_HANDLE_VERIFIER_H_
 #define BASE_WIN_SCOPED_HANDLE_VERIFIER_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <memory>
 #include <unordered_map>
 
@@ -119,5 +121,7 @@ BASE_EXPORT HMODULE GetHandleVerifierModuleForTesting();
 }  // namespace internal
 }  // namespace win
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_WIN_SCOPED_HANDLE_VERIFIER_H_

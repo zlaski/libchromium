@@ -5,6 +5,8 @@
 #ifndef BASE_THREADING_SCOPED_BLOCKING_CALL_H_
 #define BASE_THREADING_SCOPED_BLOCKING_CALL_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include "base/base_export.h"
 #include "base/functional/callback_forward.h"
 #include "base/location.h"
@@ -133,5 +135,7 @@ void BASE_EXPORT EnableIOJankMonitoringForProcess(
         OnlyObservedThreadsForTest(false));
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_THREADING_SCOPED_BLOCKING_CALL_H_

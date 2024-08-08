@@ -45,13 +45,17 @@ void File::Close() {
     return;
   }
 
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif // __LIBCHROMIUM_MODS__
   SCOPED_FILE_TRACE("Close");
   file_.Close();
 }
 
 int64_t File::Seek(Whence whence, int64_t offset) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
 
   SCOPED_FILE_TRACE_WITH_SIZE("Seek", offset);
@@ -66,7 +70,9 @@ int64_t File::Seek(Whence whence, int64_t offset) {
 }
 
 int File::Read(int64_t offset, char* data, int size) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
   DCHECK(!async_);
   if (size < 0 || offset < 0) {
@@ -97,7 +103,9 @@ int File::Read(int64_t offset, char* data, int size) {
 }
 
 int File::ReadAtCurrentPos(char* data, int size) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
   DCHECK(!async_);
   if (size < 0) {
@@ -133,7 +141,9 @@ int File::ReadAtCurrentPosNoBestEffort(char* data, int size) {
 }
 
 int File::Write(int64_t offset, const char* data, int size) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
   DCHECK(!async_);
   if (size < 0 || offset < 0) {
@@ -159,7 +169,9 @@ int File::Write(int64_t offset, const char* data, int size) {
 }
 
 int File::WriteAtCurrentPos(const char* data, int size) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
   DCHECK(!async_);
   if (size < 0) {
@@ -183,7 +195,9 @@ int File::WriteAtCurrentPosNoBestEffort(const char* data, int size) {
 }
 
 int64_t File::GetLength() const {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
 
   SCOPED_FILE_TRACE("GetLength");
@@ -197,7 +211,9 @@ int64_t File::GetLength() const {
 }
 
 bool File::SetLength(int64_t length) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
 
   SCOPED_FILE_TRACE_WITH_SIZE("SetLength", length);
@@ -230,7 +246,9 @@ bool File::SetLength(int64_t length) {
 }
 
 bool File::SetTimes(Time last_access_time, Time last_modified_time) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
 
   SCOPED_FILE_TRACE("SetTimes");
@@ -242,7 +260,9 @@ bool File::SetTimes(Time last_access_time, Time last_modified_time) {
 }
 
 bool File::GetInfo(Info* info) const {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
 
   SCOPED_FILE_TRACE("GetInfo");
@@ -387,7 +407,9 @@ File::Error File::OSErrorToFileError(DWORD last_error) {
 }
 
 void File::DoInitialize(const FilePath& path, uint32_t flags) {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(!IsValid());
 
   DWORD disposition = 0;
@@ -495,12 +517,14 @@ void File::DoInitialize(const FilePath& path, uint32_t flags) {
       DCHECK(!base::FilePath::CompareEqualIgnoreCase(FILE_PATH_LITERAL(".dll"),
                                                      path.Extension()));
 
+#ifndef __LIBCHROMIUM_MODS__
       // It is possible that the ACE could not be added if the file was created
       // in a path for which the caller does not have WRITE_DAC access. In this
       // case, ignore the error since if this is occurring then it's likely the
       // file cannot be opened for write and more serious I/O failures are
       // occurring or about to occur.
       std::ignore = PreventExecuteMapping(path);
+#endif  // __LIBCHROMIUM_MODS__
     }
   } else {
     error_details_ = GetLastFileError();
@@ -508,7 +532,9 @@ void File::DoInitialize(const FilePath& path, uint32_t flags) {
 }
 
 bool File::Flush() {
+#ifndef __LIBCHROMIUM_MODS__
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
+#endif  // __LIBCHROMIUM_MODS__
   DCHECK(IsValid());
   SCOPED_FILE_TRACE("Flush");
 
