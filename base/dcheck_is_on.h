@@ -5,6 +5,8 @@
 #ifndef BASE_DCHECK_IS_ON_H_
 #define BASE_DCHECK_IS_ON_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+    
 #include "base/debug/debugging_buildflags.h"
 
 #if defined(NDEBUG) && !defined(DCHECK_ALWAYS_ON)
@@ -18,5 +20,7 @@
 #else
 #define EXPENSIVE_DCHECKS_ARE_ON() false
 #endif
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_DCHECK_IS_ON_H_

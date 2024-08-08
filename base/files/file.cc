@@ -90,6 +90,7 @@ void File::Initialize(const FilePath& path, uint32_t flags) {
     error_details_ = FILE_ERROR_ACCESS_DENIED;
     return;
   }
+
   if (FileTracing::IsCategoryEnabled()
 #if BUILDFLAG(IS_ANDROID)
       || path.IsContentUri()
@@ -97,7 +98,9 @@ void File::Initialize(const FilePath& path, uint32_t flags) {
   ) {
     path_ = path;
   }
+#ifndef __LIBCHROMIUM_MODS__
   SCOPED_FILE_TRACE("Initialize");
+#endif // __LIBCHROMIUM_MODS__
   DoInitialize(path, flags);
 }
 #endif
@@ -247,6 +250,8 @@ std::string File::ErrorToString(Error error) {
   NOTREACHED();
 }
 
+#ifndef __LIBCHROMIUM_MODS__
+
 void File::WriteIntoTrace(perfetto::TracedValue context) const {
   auto dict = std::move(context).WriteDictionary();
   dict.Add("is_valid", IsValid());
@@ -254,5 +259,7 @@ void File::WriteIntoTrace(perfetto::TracedValue context) const {
   dict.Add("async", async_);
   dict.Add("error_details", ErrorToString(error_details_));
 }
+
+#endif // __LIBCHROMIUM_MODS__
 
 }  // namespace base

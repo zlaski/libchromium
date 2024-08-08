@@ -5,6 +5,8 @@
 #ifndef BASE_FILES_FILE_TRACING_H_
 #define BASE_FILES_FILE_TRACING_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <stdint.h>
 
 #include "base/base_export.h"
@@ -92,5 +94,7 @@ class BASE_EXPORT FileTracing {
 };
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_FILES_FILE_TRACING_H_

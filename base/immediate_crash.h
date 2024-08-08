@@ -5,6 +5,8 @@
 #ifndef BASE_IMMEDIATE_CRASH_H_
 #define BASE_IMMEDIATE_CRASH_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include "base/fuzzing_buildflags.h"
 #include "build/build_config.h"
 
@@ -193,5 +195,7 @@ namespace base {
 }
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_IMMEDIATE_CRASH_H_

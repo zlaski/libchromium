@@ -115,11 +115,13 @@ class StrongAlias {
 
   // If UnderlyingType can be serialised into trace, its alias is also
   // serialisable.
+#ifndef __LIBCHROMIUM_MODS__
   template <class U = UnderlyingType>
   typename perfetto::check_traced_value_support<U>::type WriteIntoTrace(
       perfetto::TracedValue&& context) const {
     perfetto::WriteIntoTracedValue(std::move(context), value_);
   }
+#endif
 
  protected:
   UnderlyingType value_;

@@ -86,8 +86,10 @@ class GenericScopedHandle {
 
       if (Traits::IsHandleValid(handle)) {
         handle_ = handle;
+#ifndef __LIBCHROMIUM_MODS__
         Verifier::StartTracking(handle, this, BASE_WIN_GET_CALLER,
                                 GetProgramCounter());
+#endif // __LIBCHROMIUM__MODS__
       }
       ::SetLastError(last_error);
     }
@@ -103,8 +105,10 @@ class GenericScopedHandle {
     Handle temp = handle_;
     handle_ = Traits::NullHandle();
     if (Traits::IsHandleValid(temp)) {
+#ifndef __LIBCHROMIUM_MODS__
       Verifier::StopTracking(temp, this, BASE_WIN_GET_CALLER,
                              GetProgramCounter());
+#endif  // __LIBCHROMIUM__MODS__
     }
     return temp;
   }
@@ -115,8 +119,10 @@ class GenericScopedHandle {
   // Explicitly closes the owned handle.
   void Close() {
     if (Traits::IsHandleValid(handle_)) {
+#ifndef __LIBCHROMIUM_MODS__
       Verifier::StopTracking(handle_, this, BASE_WIN_GET_CALLER,
                              GetProgramCounter());
+#endif // __LIBCHROMIUM_MODS__
 
       Traits::CloseHandle(handle_);
       handle_ = Traits::NullHandle();
@@ -124,9 +130,11 @@ class GenericScopedHandle {
   }
 
  private:
+#ifndef __LIBCHROMIUM_MODS__
   FRIEND_TEST_ALL_PREFIXES(ScopedHandleDeathTest, HandleVerifierWrongOwner);
   FRIEND_TEST_ALL_PREFIXES(ScopedHandleDeathTest,
                            HandleVerifierUntrackedHandle);
+#endif
   Handle handle_;
 };
 

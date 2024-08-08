@@ -5,6 +5,8 @@
 #ifndef BASE_CHECK_H_
 #define BASE_CHECK_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <iosfwd>
 #include <memory>
 
@@ -335,5 +337,7 @@ class BASE_EXPORT NotReachedNoreturnError : public CheckError {
   } while (0)
 
 }  // namespace logging
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_CHECK_H_

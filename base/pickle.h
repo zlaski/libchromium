@@ -116,7 +116,9 @@ class BASE_EXPORT PickleIterator {
   size_t read_index_;    // Offset of the next readable byte in payload.
   size_t end_index_;     // Payload size.
 
+#ifndef __LIBCHROMIUM_MODS__
   FRIEND_TEST_ALL_PREFIXES(PickleTest, GetReadPointerAndAdvance);
+#endif // __LIBCHROMIUM_MODS__
 };
 
 // This class provides facilities for basic binary value packing and unpacking.
@@ -390,6 +392,7 @@ class BASE_EXPORT Pickle {
   inline void* ClaimUninitializedBytesInternal(size_t num_bytes);
   inline void WriteBytesCommon(span<const uint8_t> data);
 
+#ifndef __LIBCHROMIUM_MODS__
   FRIEND_TEST_ALL_PREFIXES(PickleTest, DeepCopyResize);
   FRIEND_TEST_ALL_PREFIXES(PickleTest, Resize);
   FRIEND_TEST_ALL_PREFIXES(PickleTest, PeekNext);
@@ -397,6 +400,7 @@ class BASE_EXPORT Pickle {
   FRIEND_TEST_ALL_PREFIXES(PickleTest, FindNext);
   FRIEND_TEST_ALL_PREFIXES(PickleTest, FindNextWithIncompleteHeader);
   FRIEND_TEST_ALL_PREFIXES(PickleTest, FindNextOverflow);
+#endif // __LIBCHROMIUM_MODS__
 };
 
 }  // namespace base

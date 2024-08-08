@@ -7,9 +7,11 @@
 
 #include "build/build_config.h"
 
+#ifndef __LIBCHROMIUM_MODS__
 #if defined(COMPILER_MSVC) && !defined(__clang__)
 #error "Only clang-cl is supported on Windows, see https://crbug.com/988071"
 #endif
+#endif // __LIBCHROMIUM_MODS__
 
 // A wrapper around `__has_attribute()`, which is similar to the C++20-standard
 // `__has_cpp_attribute()`, but tests for support for `__attribute__(())`s.

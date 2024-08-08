@@ -594,11 +594,14 @@ class BASE_EXPORT FeatureList {
                                      std::string_view filter_prefix = "");
 
  private:
+#ifndef __LIBCHROMIUM_MODS__
   FRIEND_TEST_ALL_PREFIXES(FeatureListTest, CheckFeatureIdentity);
   FRIEND_TEST_ALL_PREFIXES(FeatureListTest,
                            StoreAndRetrieveFeaturesFromSharedMemory);
   FRIEND_TEST_ALL_PREFIXES(FeatureListTest,
                            StoreAndRetrieveAssociatedFeaturesFromSharedMemory);
+#endif
+
   // Allow Accessor to access GetOverrideStateByFeatureName().
   friend class Accessor;
 

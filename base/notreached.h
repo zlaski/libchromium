@@ -5,6 +5,8 @@
 #ifndef BASE_NOTREACHED_H_
 #define BASE_NOTREACHED_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include "base/base_export.h"
 #include "base/check.h"
 #include "base/compiler_specific.h"
@@ -46,5 +48,7 @@ namespace logging {
   ::logging::NotReachedError::DumpWillBeNotReached()
 
 }  // namespace logging
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_NOTREACHED_H_

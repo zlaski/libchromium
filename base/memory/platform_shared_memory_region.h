@@ -211,10 +211,13 @@ class BASE_EXPORT PlatformSharedMemoryRegion {
   Mode GetMode() const { return mode_; }
 
  private:
+#ifndef __LIBCHROMIUM_MODS__
   FRIEND_TEST_ALL_PREFIXES(PlatformSharedMemoryRegionTest,
                            CreateReadOnlyRegionDeathTest);
   FRIEND_TEST_ALL_PREFIXES(PlatformSharedMemoryRegionTest,
                            CheckPlatformHandlePermissionsCorrespondToMode);
+#endif
+
   static PlatformSharedMemoryRegion Create(Mode mode,
                                            size_t size
 #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)

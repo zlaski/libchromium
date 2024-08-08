@@ -5,6 +5,8 @@
 #ifndef BASE_GTEST_PROD_UTIL_H_
 #define BASE_GTEST_PROD_UTIL_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include "base/base_export.h"
 #include "testing/gtest/include/gtest/gtest_prod.h"  // nogncheck
 
@@ -63,5 +65,7 @@
   class test_case_name##_##test_name##_Test;            \
   class test_case_name##_##DISABLED_##test_name##_Test; \
   class test_case_name##_##FLAKY_##test_name##_Test
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_GTEST_PROD_UTIL_H_

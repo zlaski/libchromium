@@ -64,6 +64,8 @@
 #ifndef BASE_METRICS_HISTOGRAM_H_
 #define BASE_METRICS_HISTOGRAM_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -671,5 +673,7 @@ BASE_EXPORT bool OverlapsBestEffortRange(TimeTicks now, TimeDelta range);
 }  // namespace internal
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_METRICS_HISTOGRAM_H_

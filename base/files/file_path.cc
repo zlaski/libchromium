@@ -1427,9 +1427,11 @@ FilePath FilePath::NormalizePathSeparators() const {
   return NormalizePathSeparatorsTo(kSeparators[0]);
 }
 
+#ifndef __LIBCHROMIUM_MODS__
 void FilePath::WriteIntoTrace(perfetto::TracedValue context) const {
   perfetto::WriteIntoTracedValue(std::move(context), value());
 }
+#endif // __LIBCHROMIUM_MODS__
 
 FilePath FilePath::NormalizePathSeparatorsTo(CharType separator) const {
 #if defined(FILE_PATH_USES_WIN_SEPARATORS)

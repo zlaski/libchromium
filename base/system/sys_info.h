@@ -39,6 +39,8 @@ BASE_EXPORT extern const char kLsbReleaseKey[];
 BASE_EXPORT extern const char kLsbReleaseTimeKey[];
 #endif
 
+#ifndef __LIBCHROMIUM_MODS__
+
 namespace debug {
 FORWARD_DECLARE_TEST(SystemMetricsTest, ParseMeminfo);
 }
@@ -46,6 +48,8 @@ FORWARD_DECLARE_TEST(SystemMetricsTest, ParseMeminfo);
 namespace test {
 class ScopedAmountOfPhysicalMemoryOverride;
 }
+
+#endif // __LIBCHROMIUM_MODS__
 
 class FilePath;
 struct SystemMemoryInfoKB;
@@ -333,9 +337,11 @@ class BASE_EXPORT SysInfo {
 #endif
 
  private:
+#ifndef __LIBCHROMIUM_MODS__
   friend class test::ScopedAmountOfPhysicalMemoryOverride;
   FRIEND_TEST_ALL_PREFIXES(SysInfoTest, AmountOfAvailablePhysicalMemory);
   FRIEND_TEST_ALL_PREFIXES(debug::SystemMetricsTest, ParseMeminfo);
+#endif
 
   static int NumberOfEfficientProcessorsImpl();
   static uint64_t AmountOfPhysicalMemoryImpl();

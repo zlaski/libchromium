@@ -67,9 +67,11 @@ void MaybePrintResourceId(uint16_t resource_id) {
   // Note: These are leaked intentionally. However, it's only allocated if the
   // above command line is specified, so it shouldn't affect regular users.
   static std::set<uint16_t>* resource_ids_logged = new std::set<uint16_t>();
+#ifndef __LIBCHROMIUM_MODS__
   // DataPack doesn't require single-threaded access, so use a lock.
   static base::Lock* lock = new base::Lock;
   base::AutoLock auto_lock(*lock);
+#endif
   if (!base::Contains(*resource_ids_logged, resource_id)) {
     printf("Resource=%d\n", resource_id);
     resource_ids_logged->insert(resource_id);

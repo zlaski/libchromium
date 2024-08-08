@@ -5,6 +5,8 @@
 #ifndef BASE_LOGGING_H_
 #define BASE_LOGGING_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <stddef.h>
 
 #include <cassert>
@@ -756,5 +758,7 @@ BASE_EXPORT HANDLE DuplicateLogFileHandle();
 #endif
 
 }  // namespace logging
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_LOGGING_H_

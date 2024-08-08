@@ -333,8 +333,10 @@ class BASE_EXPORT File {
 
   bool async() const { return async_; }
 
+#ifndef __LIBCHROMIUM_MODS__
   // Serialise this object into a trace.
   void WriteIntoTrace(perfetto::TracedValue context) const;
+#endif
 
 #if BUILDFLAG(IS_APPLE)
   // Initializes experiments. Must be invoked early in process startup, but
@@ -416,7 +418,9 @@ class BASE_EXPORT File {
   }
 
  private:
+#ifndef __LIBCHROMIUM_MODS__
   friend class FileTracing::ScopedTrace;
+#endif
 
   // Creates or opens the given file. Only called if |path| has no
   // traversal ('..') components.
@@ -431,8 +435,10 @@ class BASE_EXPORT File {
   // `Initialize()`.
   FilePath path_;
 
+#ifndef __LIBCHROMIUM_MODS__
   // Object tied to the lifetime of |this| that enables/disables tracing.
   FileTracing::ScopedEnabler trace_enabler_;
+#endif
 
   Error error_details_ = FILE_ERROR_FAILED;
   bool created_ = false;

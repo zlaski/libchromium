@@ -468,8 +468,10 @@ class BASE_EXPORT FilePath {
     return CompareIgnoreCase(string1, string2) < 0;
   }
 
+#ifndef __LIBCHROMIUM_MODS__
   // Serialise this object into a trace.
   void WriteIntoTrace(perfetto::TracedValue context) const;
+#endif // __LIBCHROMIUM_MODS__
 
 #if BUILDFLAG(IS_APPLE)
   // Returns the string in the special canonical decomposed form as defined for

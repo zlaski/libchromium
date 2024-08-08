@@ -241,9 +241,11 @@ CommandLine::~CommandLine() = default;
 #if BUILDFLAG(IS_WIN)
 // static
 void CommandLine::set_slash_is_not_a_switch() {
+#ifndef __LIBCHROMIUM_MODS__
   // The last switch prefix should be slash, so adjust the size to skip it.
   static_assert(base::span(kSwitchPrefixes).back() == L"/",
                 "Error: Last switch prefix is not a slash.");
+#endif
   switch_prefix_count = std::size(kSwitchPrefixes) - 1;
 }
 
@@ -585,8 +587,10 @@ void CommandLine::ParseFromString(StringViewType command_line) {
     args = ::CommandLineToArgvW(command_line.data(), &num_args);
   }
 
+#ifndef __LIBCHROMIUM_MODS__
   DPLOG_IF(FATAL, !args) << "CommandLineToArgvW failed on command line: "
                          << command_line;
+#endif
   StringVector argv(args, args + num_args);
   InitFromArgv(argv);
   raw_command_line_string_ = StringViewType();

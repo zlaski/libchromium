@@ -575,9 +575,11 @@ std::optional<std::basic_string<CharT>> DoReplaceStringPlaceholders(
         } else {
           if (*i < '1' || *i > '9') {
             if (is_strict_mode) {
+#ifndef __LIBCHROMIUM_MODS__
               DLOG(ERROR) << "Invalid placeholder after placeholder prefix: "
                           << std::basic_string<CharT>(1, placeholder_prefix)
                           << std::basic_string<CharT>(1, *i);
+#endif
               return std::nullopt;
             }
 

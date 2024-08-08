@@ -5,6 +5,8 @@
 #ifndef BASE_TRACE_EVENT_BASE_TRACING_FORWARD_H_
 #define BASE_TRACE_EVENT_BASE_TRACING_FORWARD_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 // This header is a wrapper around perfetto's traced_value_forward.h that
 // handles Chromium's ENABLE_BASE_TRACING buildflag.
 
@@ -33,5 +35,7 @@ struct check_traced_value_support {
 }  // namespace perfetto
 
 #endif  // !BUILDFLAG(ENABLE_BASE_TRACING)
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_TRACE_EVENT_BASE_TRACING_FORWARD_H_

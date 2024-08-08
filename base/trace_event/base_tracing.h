@@ -5,6 +5,8 @@
 #ifndef BASE_TRACE_EVENT_BASE_TRACING_H_
 #define BASE_TRACE_EVENT_BASE_TRACING_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 // Proxy header that provides tracing instrumentation for //base code. When
 // tracing support is disabled via the gn flag enable_base_tracing, this header
 // provides a mock implementation of the relevant trace macros instead, which
@@ -31,5 +33,7 @@
 #else  // BUILDFLAG(ENABLE_BASE_TRACING)
 #include "base/trace_event/trace_event_stub.h"  // IWYU pragma: export
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_TRACE_EVENT_BASE_TRACING_H_

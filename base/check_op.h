@@ -5,6 +5,8 @@
 #ifndef BASE_CHECK_OP_H_
 #define BASE_CHECK_OP_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <cstddef>
 #include <string>
 #include <string_view>
@@ -280,5 +282,7 @@ DEFINE_CHECK_OP_IMPL(GT, > )
   DUMP_WILL_BE_CHECK_OP(GT, >, val1, val2)
 
 }  // namespace logging
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_CHECK_OP_H_
