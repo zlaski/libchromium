@@ -5,6 +5,8 @@
 #ifndef BASE_MEMORY_SHARED_MEMORY_SECURITY_POLICY_H_
 #define BASE_MEMORY_SHARED_MEMORY_SECURITY_POLICY_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <stddef.h>
 
 #include "base/base_export.h"
@@ -40,5 +42,7 @@ class BASE_EXPORT SharedMemorySecurityPolicy {
 };
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_MEMORY_SHARED_MEMORY_SECURITY_POLICY_H_

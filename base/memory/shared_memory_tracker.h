@@ -5,6 +5,8 @@
 #ifndef BASE_MEMORY_SHARED_MEMORY_TRACKER_H_
 #define BASE_MEMORY_SHARED_MEMORY_TRACKER_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <map>
 #include <string>
 
@@ -79,5 +81,7 @@ class BASE_EXPORT SharedMemoryTracker : public trace_event::MemoryDumpProvider {
 };
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_MEMORY_SHARED_MEMORY_TRACKER_H_

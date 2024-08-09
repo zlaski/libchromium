@@ -5,6 +5,8 @@
 #ifndef BASE_LOCATION_H_
 #define BASE_LOCATION_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <compare>
 #include <string>
 
@@ -72,10 +74,8 @@ class BASE_EXPORT Location {
   // are not available, this will return "pc:<hex address>".
   std::string ToString() const;
 
-#ifndef __LIBCHROMIUM_MODS__
   // Write a representation of this object into a trace.
   void WriteIntoTrace(perfetto::TracedValue context) const;
-#endif
 
   static Location Current(const char* function_name = __builtin_FUNCTION(),
                           const char* file_name = __builtin_FILE(),
@@ -113,5 +113,7 @@ BASE_EXPORT const void* GetProgramCounter();
 #define FROM_HERE ::base::Location::Current()
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_LOCATION_H_

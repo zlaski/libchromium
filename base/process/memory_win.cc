@@ -27,7 +27,10 @@ int ReleaseReservationOrTerminate(size_t size) {
   if (internal::ReleaseAddressSpaceReservation()) {
     return kRetryAllocation;
   }
+#ifndef __LIBCHROMIUM_MODS__
   TerminateBecauseOutOfMemory(size);
+#endif
+  return 0;
 }
 
 }  // namespace

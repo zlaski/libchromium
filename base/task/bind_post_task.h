@@ -5,6 +5,8 @@
 #ifndef BASE_TASK_BIND_POST_TASK_H_
 #define BASE_TASK_BIND_POST_TASK_H_
 
+#ifndef __LIBCHROME_MODS__
+
 #include <memory>
 #include <type_traits>
 #include <utility>
@@ -124,5 +126,7 @@ RepeatingCallback<void(Args...)> BindPostTaskToCurrentDefault(
 }
 
 }  // namespace base
+
+#endif // __LIBCHROME_MODS__
 
 #endif  // BASE_TASK_BIND_POST_TASK_H_

@@ -5,6 +5,8 @@
 #ifndef PARTITION_ALLOC_OOM_H_
 #define PARTITION_ALLOC_OOM_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <cstddef>
 
 #include "partition_alloc/allocation_guard.h"
@@ -66,5 +68,7 @@ namespace internal {
 }  // namespace internal
 
 }  // namespace partition_alloc
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // PARTITION_ALLOC_OOM_H_

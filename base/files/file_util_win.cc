@@ -214,8 +214,10 @@ bool DoCopyDirectory(const FilePath& from_path,
   FileEnumerator traversal(from_path, recursive, traverse_type);
 
   if (!PathExists(from_path)) {
+#ifndef __LIBCHROMIUM_MODS__
     DLOG(ERROR) << "CopyDirectory() couldn't stat source directory: "
                 << from_path.value().c_str();
+#endif
     return false;
   }
   // TODO(maruel): This is not necessary anymore.
@@ -245,13 +247,17 @@ bool DoCopyDirectory(const FilePath& from_path,
     if (from_is_dir) {
       if (!DirectoryExists(target_path) &&
           !::CreateDirectory(target_path.value().c_str(), NULL)) {
+#ifndef __LIBCHROMIUM_MODS__
         DLOG(ERROR) << "CopyDirectory() couldn't create directory: "
                     << target_path.value().c_str();
+#endif
         success = false;
       }
     } else if (!DoCopyFile(current, target_path, fail_if_exists)) {
+#ifndef __LIBCHROMIUM_MODS__
       DLOG(ERROR) << "CopyDirectory() couldn't create file: "
                   << target_path.value().c_str();
+#endif
       success = false;
     }
 
@@ -363,11 +369,13 @@ void DeleteFileWithRetry(const FilePath& path,
     return;
   }
 
+#ifndef __LIBCHROMIUM_MODS__
   ThreadPool::PostDelayedTask(FROM_HERE,
                               {TaskPriority::BEST_EFFORT, MayBlock()},
                               BindOnce(&DeleteFileWithRetry, path, recursive,
                                        attempt, std::move(reply_callback)),
                               kDeleteFileRetryDelay);
+#endif // __LIBCHROMIUM_MODS__
 }
 
 OnceClosure GetDeleteFileCallbackInternal(
@@ -642,7 +650,9 @@ File CreateAndOpenTemporaryFileInDir(const FilePath& dir, FilePath* temp_file) {
   }
 
   if (!file.IsValid()) {
+#ifndef __LIBCHROMIUM_MODS__
     DPLOG(WARNING) << "Failed to get temporary file name in " << dir.value();
+#endif
     return file;
   }
 
@@ -744,8 +754,10 @@ bool CreateDirectoryAndGetError(const FilePath& full_path, File::Error* error) {
     if ((fileattr & FILE_ATTRIBUTE_DIRECTORY) != 0) {
       return true;
     }
+#ifndef __LIBCHROMIUM_MODS__
     DLOG(WARNING) << "CreateDirectory(" << full_path_str << "), "
                   << "conflicts with existing file.";
+#endif
     if (error) {
       *error = File::FILE_ERROR_NOT_A_DIRECTORY;
     }
@@ -788,7 +800,9 @@ bool CreateDirectoryAndGetError(const FilePath& full_path, File::Error* error) {
     *error = File::OSErrorToFileError(error_code);
   }
   ::SetLastError(error_code);
+#ifndef __LIBCHROMIUM_MODS__
   DPLOG(WARNING) << "Failed to create directory " << full_path_str;
+#endif
   return false;
 }
 
@@ -1027,7 +1041,9 @@ bool WriteFile(const FilePath& filename, span<const uint8_t> data) {
                                     NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL,
                                     NULL));
   if (!file.is_valid()) {
+#ifndef __LIBCHROMIUM_MODS__
     DPLOG(WARNING) << "WriteFile failed for path " << filename.value();
+#endif
     return false;
   }
 
@@ -1040,11 +1056,15 @@ bool WriteFile(const FilePath& filename, span<const uint8_t> data) {
 
   if (!result) {
     // WriteFile failed.
+#ifndef __LIBCHROMIUM_MODS__
     DPLOG(WARNING) << "writing file " << filename.value() << " failed";
+#endif
   } else {
     // Didn't write all the bytes.
+#ifndef __LIBCHROMIUM_MODS__
     DLOG(WARNING) << "wrote" << written << " bytes to " << filename.value()
                   << " expected " << size;
+#endif
   }
   return false;
 }
@@ -1054,7 +1074,9 @@ bool AppendToFile(const FilePath& filename, span<const uint8_t> data) {
   win::ScopedHandle file(CreateFile(filename.value().c_str(), FILE_APPEND_DATA,
                                     0, nullptr, OPEN_EXISTING, 0, nullptr));
   if (!file.is_valid()) {
+#ifndef __LIBCHROMIUM_MODS__
     VPLOG(1) << "CreateFile failed for path " << filename.value();
+#endif
     return false;
   }
 
@@ -1067,11 +1089,15 @@ bool AppendToFile(const FilePath& filename, span<const uint8_t> data) {
 
   if (!result) {
     // WriteFile failed.
+#ifndef __LIBCHROMIUM_MODS__
     VPLOG(1) << "Writing file " << filename.value() << " failed";
+#endif
   } else {
     // Didn't write all the bytes.
+#ifndef __LIBCHROMIUM_MODS__
     VPLOG(1) << "Only wrote " << written << " out of " << size << " byte(s) to "
              << filename.value();
+#endif
   }
   return false;
 }

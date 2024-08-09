@@ -50,8 +50,10 @@ SharedMemoryMapping::SharedMemoryMapping(span<uint8_t> mapped_span,
                                          SharedMemoryMapper* mapper)
     : mapped_span_(mapped_span), size_(size), guid_(guid), mapper_(mapper) {
   CHECK_LE(size_, mapped_span_.size());
+#ifndef __LIBCHROMIUM_MODS__
   // Note: except on Windows, `mapped_span_.size() == size_`.
   SharedMemoryTracker::GetInstance()->IncrementMemoryUsage(*this);
+#endif // __LIBCHROMIUM_MODS__
 }
 
 void SharedMemoryMapping::Unmap() {
@@ -59,8 +61,10 @@ void SharedMemoryMapping::Unmap() {
     return;
   }
 
+#ifndef __LIBCHROMIUM_MODS__
   SharedMemorySecurityPolicy::ReleaseReservationForMapping(size_);
   SharedMemoryTracker::GetInstance()->DecrementMemoryUsage(*this);
+#endif  // __LIBCHROMIUM_MODS__
 
   SharedMemoryMapper* mapper = mapper_;
   if (!mapper) {

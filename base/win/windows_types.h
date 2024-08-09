@@ -285,7 +285,16 @@ struct CHROME_MSG {
 
 // Define some macros needed when prototyping Windows functions.
 
+#ifdef __LIBCHROMIUM_MODS__
+#ifdef _DLL
 #define DECLSPEC_IMPORT __declspec(dllimport)
+#else
+#define DECLSPEC_IMPORT
+#endif
+#else // __LIBCHROMIUM_MODS__
+#define DECLSPEC_IMPORT __declspec(dllimport)
+#endif // __LIBCHROMIUM_MODS__
+
 #define WINBASEAPI DECLSPEC_IMPORT
 #define WINUSERAPI DECLSPEC_IMPORT
 #define WINAPI __stdcall

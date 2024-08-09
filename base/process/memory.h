@@ -30,7 +30,9 @@ BASE_EXPORT void EnableTerminationOnOutOfMemory();
 using partition_alloc::TerminateBecauseOutOfMemory;
 #else
 inline void TerminateBecauseOutOfMemory(size_t) {
+#ifndef __LIBCHROMIUM_MODS__
   logging::RawCheckFailure("Out of memory");
+#endif
 }
 #endif
 
@@ -58,7 +60,9 @@ bool ReleaseAddressSpaceReservation();
 #if BUILDFLAG(IS_WIN)
 namespace win {
 
+#ifndef __LIBCHROMIUM_MODS__
 using partition_alloc::win::kOomExceptionCode;
+#endif
 
 }  // namespace win
 #endif

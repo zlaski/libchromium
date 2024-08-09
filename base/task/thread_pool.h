@@ -5,6 +5,8 @@
 #ifndef BASE_TASK_THREAD_POOL_H_
 #define BASE_TASK_THREAD_POOL_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <memory>
 #include <utility>
 
@@ -226,5 +228,7 @@ class BASE_EXPORT ThreadPool {
 };
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_TASK_THREAD_POOL_H_

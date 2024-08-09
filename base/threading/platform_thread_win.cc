@@ -189,7 +189,10 @@ bool CreateThreadInternal(size_t stack_size,
       case ERROR_OUTOFMEMORY:
       case ERROR_COMMITMENT_LIMIT:
       case ERROR_COMMITMENT_MINIMUM:
+#ifndef __LIBCHROMIUM_MODS__
         TerminateBecauseOutOfMemory(stack_size);
+#endif
+        break;
 
       default:
         static auto* last_error_crash_key = debug::AllocateCrashKeyString(
@@ -335,8 +338,10 @@ void PlatformThread::Join(PlatformThreadHandle thread_handle) {
   base::debug::Alias(&thread_id);
   base::debug::Alias(&last_error);
 
+#ifndef __LIBCHROMIUM_MODS__
   base::internal::ScopedBlockingCallWithBaseSyncPrimitives scoped_blocking_call(
       FROM_HERE, base::BlockingType::MAY_BLOCK);
+#endif
 
   // Wait for the thread to exit.  It should already have terminated but make
   // sure this assumption is valid.

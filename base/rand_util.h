@@ -5,6 +5,8 @@
 #ifndef BASE_RAND_UTIL_H_
 #define BASE_RAND_UTIL_H_
 
+#ifndef __LIBCHROMIUM_MODS__
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -326,5 +328,7 @@ BASE_EXPORT bool ShouldRecordSubsampledMetric(double probability);
 BASE_EXPORT void ReseedSharedMetricsSubsampler();
 
 }  // namespace base
+
+#endif // __LIBCHROMIUM_MODS__
 
 #endif  // BASE_RAND_UTIL_H_
